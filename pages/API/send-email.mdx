@@ -1,0 +1,49 @@
+---
+title: Send Email
+description: A reference page in my new Starlight docs site.
+---
+
+## Send Email
+
+Send emails via `post` to the `/api/emails` endpoint.
+
+```json
+{
+  "to": ["levi@example.com", "skeletor@example.com"],
+  "from": "levi@double-zero.cloud",
+  "subject": "Do you own your software?",
+  "markdown": "# Hello World!",
+}
+```
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| to               | string/string[] | yes      | The emails recipient(s)                                                                                                                  |
+| subject          | string          | no       | The email`s subject field                                                                                                                |
+| from             | string          | yes      | The email address from which the email is sent. Must be something@yourdomain.com. The the domain has to be added to SES and be verified. |
+| markdown         | string          | no       | For the email body. Either `markdown` or `html` can be used.                                                                             |
+| html             | string          | no       | For the email body. Either `markdown` or `html` can be used.                                                                             |
+| headers          | object          | no       | An object containing key/value pairs of headers                                                                                          |
+| provider_options | object          | no       | An object containing key/value pairs of provider options                                                                                 |
+| attachments      | array           | no       | An array containing attachments                                                                                                          |
+
+### `from` (required)
+
+**type:** `string`
+
+### `to` (required)
+
+**type:** `string | string[]`
+
+### `subject` (required)
+
+**type:** `string`
+
+
+### `markdown` (required | `html`)
+
+**type:** `string`
+
+### `html` (required | `markdown`)
+
+**type:** `string`

@@ -1,0 +1,145 @@
+---
+title: Getting Started
+description: A guide for getting up and running with 00.
+sidebar:
+  order: 0
+---
+
+## Getting started
+
+There are two parts to setting up 00.
+
+First, you must set up SES correctly, then you need to deploy the 00 project to your host of choice. They application is simply a docker container, and the SES setup can be handled with SST.
+
+The steps are essentially to run `sst deploy` and then run
+```
+docker run -it --env-file .env -p 4000:4000 "liltechnomancer/double-zero"
+```
+
+Let's go over it all in a bit more detail.
+
+## AWS setup
+
+The quickest way to set up AWS is to clone [the repo](https://github.com/technomancy-dev/00) and run `sst deploy` in it.
+
+Make sure to set the `EMAIL_IDENTITY` env variable first, this will be the email or domain you wish to send from.
+
+Using SST is easy, and you can find the steps to do so [here](https://ion.sst.dev/docs/reference/cli) and learn how to configure your credentials [here](https://docs.sst.dev/advanced/iam-credentials#loading-from-a-file)
+
+If you would like to avoid using SST you must manually configure AWS.
+You can find a guide for that [here](https://github.com/technomancy-dev/00/wiki/Setting-up-AWS-without-SST)
+
+If you would like to host on AWS you can deploy the entire application by setting `SST_DEPLOY=true` here is a [full guide](https://github.com/technomancy-dev/00/wiki/Hosting-on-AWS-with-SST) on that. If you follow that, ignore the next section
+
+## Docker Container
+
+We publish a docker image to the [registery](https://hub.docker.com/r/liltechnomancer/double-zero)
+
+Simply run `docker pull liltechnomancer/double-zero`
+
+Then run your docker container with the following environment variables set. Exposing port 4000.
+
+Example `docker run -it --env-file .env -p 4000:4000 "liltechnomancer/double-zero"`
+
+Before running the container please set the following variables.
+```
+AWS_SECRET_ACCESS_KEY=
+AWS_ACCESS_KEY_ID=
+AWS_REGION= # Ex: us-east-1
+SQS_URL=  # Ex: https://sqs.us-east-1.amazonaws.com/${id}
+
+SYSTEM_EMAIL= # For sending stuff like password resets. Ex: test@example.com should be able to send from SES.
+
+SECRET_KEY_BASE= # A long secret. at least 64 characters. Can be made with mix phx.gen.secret or however you generate safe keys.
+
+DATABASE_PATH= # Path to SQLite database Ex: 00.db
+PHX_HOST= #  URL or IP of where this service is running. Ex: example.com
+```
+
+Now visit your url (whatever you set PHX_HOST to) and register your user.
+
+### Verify your Domain
+After you have configured SES, with sst or manually, you have to verify that you own your domain.
+
+1. Log into the AWS management Console
+2. Navigate to your [SES Identities](https://us-east-1.console.aws.amazon.com/ses/home?region=us-east-1#/identities) in the region you setup SES.
+3. Select the Domain you want to verify
+4. Scroll down to **DomainKeys Identified Mail (DKIM)** and open the **Publish DNS records** dropdown.
+5. You will see three DNS records
+6. Head over to your domain provider and add these DNS records to your Domain.
+
+After you published these DNS records to you domain it can take up to 72h to verify your domain according to AWS. But realisticly it will be verified in less than 12h.
+
+
+## Send an Email
+
+### Register an API Key
+
+1. Log into your double-zero instance.
+2. Navigate to **Settings**
+3. Enter a unique name into the **Token Name** field
+4. Click on **Create New API Token**`
+5. You will now be shown the API-Key. Save it and treat it like a password, you can´t view this key anymore after closing the pop-up.
+
+### Make an API Request
+You can now make requests to your double-zero instance.
+To send an email you have to hit the endpoint  on `yourdomain.com/api/emails`.
+
+Use you favorite libary in your preferred language that can do https requests.
+
+1. Set the `Authorization` Header to `Bearer yourapikeyhere`
+2. Add a json body representing your email
+3. Send a `POST` request to the endpoint
+
+The response of an successful request looks like this.
+```json
+{
+    "data": {
+        "id": "51c2df38-0e3d-458b-9aff-3bf872868695", //This id is unique for every request
+        "message": "Your email has successfully been queued.",
+        "success": true
+    }
+}
+```
+
+### Body parameters
+The request body has to be json with these parameters
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| to               | string/string[] | yes      | The emails recipient(s)                                                                                                                  |
+| subject          | string          | no       | The email`s subject field                                                                                                                |
+| from             | string          | yes      | The email address from which the email is sent. Must be something@yourdomain.com. The the domain has to be added to SES and be verified. |
+| markdown         | string          | no       | For the email body. Either `markdown` or `html` can be used.                                                                             |
+| html             | string          | no       | For the email body. Either `markdown` or `html` can be used.                                                                             |
+| headers          | object          | no       | An object containing key/value pairs of headers                                                                                          |
+| provider_options | object          | no       | An object containing key/value pairs of provider options                                                                                 |
+| attachments      | array           | no       | An array containing attachments                                                                                                          |
+
+
+### Example
+
+```json
+{
+  "html": "<h1>Hello world!</h1>",
+  "subject": "Can your email service track multiple recipients?",
+  "from": "levi@fidoforms.com",
+  "to": ["levi@technomancy.dev", "complaint@simulator.amazonses.com"]
+}
+```
+
+
+## Support
+Stuck? Tell me about it on [Discord](https://discord.gg/6r7Qtf754K) and lets unstick you!
+
+## Pro + support open source.
+
+If you are eager to support this project you can pre-order a [pro version](https://buy.stripe.com/5kA3dV5W1aBgaUo28e?prefilled_promo_code=EARLYBIRD) for you to self host.
+
+Planned pro features include
+
+* Multiple Users
+* Teams
+* Advanced Analytics
+* Track email history
+* Possibly more, we will see.

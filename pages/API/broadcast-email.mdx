@@ -1,0 +1,106 @@
+---
+title: Broadcast Email
+description: A reference page in my new Starlight docs site.
+---
+
+## Broadcast Email
+
+Broadcast emails via `POST` to the `/api/emails/broadcasts` endpoint.
+
+**Example**
+```json
+{
+  "recipients": [
+    "levi@example.com", // Simple email, will find contact if it exists.
+    {"type": "list", "name": "The cool kids"}, // List saved in 00
+    {
+      "type": "email",
+      "email": "test@example.com",
+      "car": { "year": 1992, "make": "Toyota", "model": "Supra" }
+    } // Possible contact, with additional info.
+  ],
+  "from": "levi@double-zero.cloud",
+  "subject": "Do you own your software?",
+  "markdown": "# Hello {{ first_name }}!",
+}
+```
+
+| Param            | Type                  | Required | Notes                                                                                                                                    |
+|------------------|-----------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| recipients       | string[]/List[]/Email | yes      | The emails recipient(s). Can be a list of email strings, or List or Email objects                                                        |
+| subject          | string                | no       | The email`s subject field                                                                                                                |
+| from             | string                | yes      | The email address from which the email is sent. Must be something@yourdomain.com. The the domain has to be added to SES and be verified. |
+| markdown         | string                | no       | For the email body. Either `markdown` or `html` can be used.                                                                             |
+| html             | string                | no       | For the email body. Either `markdown` or `html` can be used.                                                                             |
+| headers          | object                | no       | An object containing key/value pairs of headers                                                                                          |
+| provider_options | object                | no       | An object containing key/value pairs of provider options                                                                                 |
+| attachments      | array                 | no       | An array containing attachments                                                                                                          |
+
+
+Broadcasts support `{{ liquid_style }}` templates for both HTML and Markdown.
+
+Variables can be passed with the request, attached to recipients, or come from stored contact information. Currently the variables stored on contacts are `first_name` and `last_name`.
+
+This allows for templates like
+
+```
+# Hello {{ first_name }},
+
+I am emailing your about your car's extended warranty.
+I see you drive a {{ car.year }}, {{ car.make }} {{ car.model }}
+```
+
+### `from` (required)
+
+**type:** `string`
+
+### `recipients` (required)
+
+**type:** `string[] | List[] | Email[]` 
+
+
+
+
+Accepts an array of email addresses, or simple objects `list` or `email` defined by the type field.
+
+#### List
+
+**type:** `{ type: "list", name?: string, id?: string }`
+
+List takes either a `name` which is the name of the list, or `id` which is it's UUID.
+```json
+{
+  type: "list",
+  name: "Some List"
+}
+// OR
+{
+  type: "list",
+  id: "12345"
+}
+```
+
+#### Email
+
+**type:** `{ type: "email", name: email, [key: string]: any; }`
+ 
+Email simply requires an `email` field. Anything else you add to this object will be fed into the template variables.
+```json
+{
+  type: "email",
+  email: "test@example.com"
+}
+```
+
+### `subject` (required)
+
+**type:** `string`
+
+
+### `markdown` (required | `html`)
+
+**type:** `string`
+
+### `html` (required | `markdown`)
+
+**type:** `string`

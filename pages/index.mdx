@@ -1,0 +1,24 @@
+# 00 is a self hostable SES dashboard for sending and monitoring emails with AWS.
+
+SES is an incredibly affordable way to build an email heavy application.
+
+However monitoring the emails is a bit of a nightmare, and often requires custom infrastructure. Even setting up the SES -> SNS -> SQS pipeline is a headache for developers unfamiliar with AWS. And when that is done your still left with hooking in or building custom some dashboard for viewing bounces and all the vital information you care about.
+
+00 provides an SST configuration step to set up the SES -> SNS -> SQS pipeline,
+so you can just run a command and let SST do the rest.
+
+If you would also like to deploy the container with SST follow this [guide](https://github.com/technomancy-dev/00/wiki/Hosting-on-AWS-with-SST).
+
+Then 00 provides you that dashboard for viewing the information you care about.
+
+
+Some key features include:
+
+- Run SST to configure AWS for you.
+- The ability to send emails by sending a `POST` request to `/api/emails`.
+- Monitor email status (with multi-recipient tracking).
+- Search emails and messages (a message is created for every recipient).
+- View email body.
+- Log tracking for requests and queue.
+
+If you like video walkthroughs [Web Dev Cody](https://www.youtube.com/watch?v=d9JrOgLE8DE) made a fantastic one.

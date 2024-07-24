@@ -1,0 +1,36 @@
+---
+title: Downloading Pro
+description: A guide for getting up and running with 00.
+---
+
+## Download Pro
+
+After you purchase 00 pro you will recieve an email with an license key.
+
+You can use that key and download a `tar` of the pro docker container with the following command. (Make sure to replace `YOUR-LICENSE-KEY`)
+
+```
+curl -SLOG https://get.keygen.sh/technomancy-dev/0.0.2/double-zero-pro.tar.gz \
+  -d 'auth=license:YOUR-LICENSE-KEY'
+```
+Use `double-zero-pro-arm.tar.gz` if you need to run on arm64.
+
+You can then use `docker load < double-zero-pro.tar.gz` to turn the tar into a normal docker container.
+
+Running `docker image ls` after should reveal a `technomancy/double-zero-pro` container. That can be hosted wherever you host docker containers.
+
+All the deployment steps are the same as the [open source project] (https://github.com/technomancy-dev/00)
+
+## Notes on upgrading.
+
+First, there is no script to migrate the databse. I suggest making a backup if you care to keep the data and then starting fresh.
+
+If you need it migrated please reach out, as I am working on migration scipts.
+
+Also a new set of resources has been added to SST to handle recieving unsubscribe emails. So you will need to run SST again.
+
+Please pull the latest version from github to run it. This will require you set an `UNSUBSCRIBE_EMAIL` to an email that is tied to an identity you added to SES (like the EMAIL_IDENTITY variable you set)
+
+I use `UNSUBSCRIBE_EMAIL="unsubscribe@unsubscribe.double-zero.com"` and my email identitity is `"EMAIL_IDENTITY="double-zero.com"`
+
+You will also need to set an `MX` record for that domain to allow AWS to recieve email. It will be the subdomain you use for your `UNSUBSCRIBE_EMAIL` as the host with the value being `inbound-smtp.region.amazonaws.com` where `region` is replaced with the AWS region you want to recieve mail from like `us-east-1`.
