@@ -1,5 +1,9 @@
 {
   "index": "Home",
   "guides": "Guides",
-  "API": "API"
+  "API": "API",
+  "---": {
+    "type": "separator"
+  },
+  "sdks": "Community SDKs"
 }
