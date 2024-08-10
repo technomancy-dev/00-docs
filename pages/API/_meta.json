@@ -1,4 +1,6 @@
 {
   "send-email": "Send Email",
-  "broadcast-email": "Broadcast Email"
+  "broadcast-email": "Broadcast Email",
+  "get-email": "Get Email",
+  "get-email-messages": "Get Email Messages"
 }

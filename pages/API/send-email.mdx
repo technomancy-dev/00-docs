@@ -7,7 +7,8 @@ description: A reference page in my new Starlight docs site.
 
 Send emails via `post` to the `/api/emails` endpoint.
 
-```json
+### Example
+```json copy
 {
   "to": ["levi@example.com", "skeletor@example.com"],
   "from": "levi@double-zero.cloud",
@@ -15,6 +16,7 @@ Send emails via `post` to the `/api/emails` endpoint.
   "markdown": "# Hello World!",
 }
 ```
+### Body Parameters
 
 | Param            | Type            | Required | Notes                                                                                                                                    |
 |------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
@@ -27,23 +29,23 @@ Send emails via `post` to the `/api/emails` endpoint.
 | provider_options | object          | no       | An object containing key/value pairs of provider options                                                                                 |
 | attachments      | array           | no       | An array containing attachments                                                                                                          |
 
-### `from` (required)
+#### `from` (required)
 
 **type:** `string`
 
-### `to` (required)
+#### `to` (required)
 
 **type:** `string | string[]`
 
-### `subject` (required)
+#### `subject` (required)
 
 **type:** `string`
 
 
-### `markdown` (required | `html`)
+#### `markdown` (required | `html`)
 
 **type:** `string`
 
-### `html` (required | `markdown`)
+#### `html` (required | `markdown`)
 
 **type:** `string`

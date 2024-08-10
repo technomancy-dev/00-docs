@@ -1,0 +1,35 @@
+---
+title: Get Email Messages
+description: A reference page in my new Starlight docs site.
+---
+
+## Get Email
+
+Get an emails associated messages via `get` to the `/api/emails/:id/messages` endpoint.
+
+### Example
+```json copy
+{
+  "data": [
+    {
+      "id": "f85e4d64-1993-4dfc-8aa8-ef521c5edc78",
+      "status": "pending",
+      "recipient": {
+        "id": "23d2faec-47df-40c0-9588-b4d6c9e6929f",
+        "destination": "orin_rempel@example.com",
+        "status": "subscribed"
+      }
+    }
+  ]
+}
+```
+
+### Path Parameters
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| id               | uuid            | yes      | The emails uuid                                                                                                                  |
+
+#### `id` (required)
+
+**type:** `uuid`

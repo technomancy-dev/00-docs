@@ -1,24 +1,45 @@
-# 00 is a self hostable SES dashboard for sending and monitoring emails with AWS.
+import { Cards, Card } from 'nextra/components'
+import { Bolt } from '../components/bolt'
 
-SES is an incredibly affordable way to build an email heavy application.
+# 00 is built for developers.
 
-However monitoring the emails is a bit of a nightmare, and often requires custom infrastructure. Even setting up the SES -> SNS -> SQS pipeline is a headache for developers unfamiliar with AWS. And when that is done your still left with hooking in or building custom some dashboard for viewing bounces and all the vital information you care about.
+The best solution for self hosted email monitoring.
 
-00 provides an SST configuration step to set up the SES -> SNS -> SQS pipeline,
-so you can just run a command and let SST do the rest.
+A single docker image, SST to configure AWS, a unique and powerful API, and much more.
 
-If you would also like to deploy the container with SST follow this [guide](https://github.com/technomancy-dev/00/wiki/Hosting-on-AWS-with-SST).
+## Quickstart
 
-Then 00 provides you that dashboard for viewing the information you care about.
+<Card icon={<Bolt/>} title="Getting started is quick and easy, check out full getting started guide for more detail on each step." href="/guides/getting-started" />
 
+1. Clone the [repository](https://github.com/technomancy-dev/00)
+`git clone git@github.com:technomancy-dev/00.git` <br/>
+2. run `sst deploy` (this will create the SNS -> SQS pipeline needed) <br/>
+3. Create a .env file with the following variables.
+```
+AWS_SECRET_ACCESS_KEY=
+AWS_ACCESS_KEY_ID=
+AWS_REGION= # Ex: us-east-1
+SQS_URL=  # Ex: https://sqs.us-east-1.amazonaws.com/${id}
+SYSTEM_EMAIL= # For sending stuff like password resets. Ex: test@example.com should be able to send from SES.
+SECRET_KEY_BASE= # A long secret. at least 64 characters. Can be made with mix phx.gen.secret or however you generate safe keys.
+DATABASE_PATH= # Path to SQLite database Ex: 00.db
+PHX_HOST= #  URL or IP of where this service is running. Ex: example.com
+```
 
-Some key features include:
+Run the docker container
 
-- Run SST to configure AWS for you.
-- The ability to send emails by sending a `POST` request to `/api/emails`.
-- Monitor email status (with multi-recipient tracking).
-- Search emails and messages (a message is created for every recipient).
-- View email body.
-- Log tracking for requests and queue.
+`docker run -it --env-file .env -p 4000:4000 "liltechnomancer/double-zero"`
 
-If you like video walkthroughs [Web Dev Cody](https://www.youtube.com/watch?v=d9JrOgLE8DE) made a fantastic one.
+Send an email:
+```
+curl --request POST \
+  --url http://localhost:4000/api/emails \
+  --header 'Authorization: Bearer <GENERATE A TOKEN IN SETTINGS>' \
+  --header 'content-type: application/json' \
+  --data '{
+  "markdown": "<h1>Boogers</h1>",
+  "subject": "Hark, who goes there?",
+  "from": "\"Levi 👻\" <levi@double-zero.cloud>",
+  "to": "success@simulator.amazonses.com"
+}'
+```
