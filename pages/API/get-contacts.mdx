@@ -1,0 +1,58 @@
+---
+title: Get Contacts
+---
+
+## Get Contacts (Pro Feature)
+
+Get a paginated list of contacts via `get` to the `/api/contacts` endpoint.
+
+### Example
+```json copy
+{
+
+  "data": [{
+    "id": "1177c188-4ebe-4380-81da-deb496ef4179",
+    "email": "levi@example.com",
+    "first_name": "Levi",
+    "last_name": "00",
+    "inserted_at": "2024-09-03T13:47:17Z",
+    "updated_at": "2024-09-03T13:47:17Z"
+  }],
+  "meta": {
+    "current_page": 1,
+    "page_size": 1,
+    "previous_page": null,
+    "total_count": 1,
+    "total_pages": 1
+  }
+}
+```
+
+### Path Parameters
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| id               | uuid            | yes      | The contacts uuid                                                                                                                  |
+
+#### `id` (required)
+
+**type:** `uuid`
+
+### Query Parameters
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| page             | int             | no       | The page you would like to request.
+| page_size        | int             | no       | How many records should be returned per page. Default 12 max 100.
+
+#### `page` 
+
+**type:** `int`
+
+The page you would like to request. 
+
+#### `page_size`
+
+**type:** `int`
+
+How many records should be returned per page. Default 12 max 100.

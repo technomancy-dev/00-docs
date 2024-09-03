@@ -1,0 +1,41 @@
+---
+title: Update Contact
+---
+
+## Update Contact (Pro Feature)
+
+Update a contact via `patch` to the `/api/contacts/:id` endpoint.
+
+### Example Response
+```json copy
+{
+
+  "data": {
+    "id": "1177c188-4ebe-4380-81da-deb496ef4179",
+    "email": "levi@example.com",
+    "first_name": "Levi",
+    "last_name": "00",
+    "inserted_at": "2024-09-03T13:47:17Z",
+    "updated_at": "2024-09-03T13:47:17Z"
+  }
+}
+```
+
+### Body Parameters
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| email            | string          | no       | The contacts email. Will update associated recipient.                                                                                    |
+| first_name       | string          | no       | The contacts first name.                                                                                                                 |
+| last_name        | string          | no       | The contacts last name.                                                                                                                  |
+
+
+### Path Parameters
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| id               | uuid            | yes      | The contacts uuid                                                                                                                  |
+
+#### `id` (required)
+
+**type:** `uuid`

@@ -2,5 +2,9 @@
   "send-email": "Send Email",
   "broadcast-email": "Broadcast Email (Pro)",
   "get-email": "Get Email (Pro)",
-  "get-email-messages": "Get Email Messages (Pro)"
+  "get-email-messages": "Get Email Messages (Pro)",
+  "get-contacts": "Get Contacts (Pro)",
+  "get-contact": "Get Contact (Pro)",
+  "update-contact": "Update Contact (Pro)",
+  "delete-contact": "Delete Contact (Pro)"
 }

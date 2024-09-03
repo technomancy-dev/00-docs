@@ -1,0 +1,33 @@
+---
+title: Get Contact
+description: A reference page in my new Starlight docs site.
+---
+
+## Get Contact (Pro Feature)
+
+Get a contact via `get` to the `/api/contacts/:id` endpoint.
+
+### Example
+```json copy
+{
+
+  "data": {
+    "id": "1177c188-4ebe-4380-81da-deb496ef4179",
+    "email": "levi@example.com",
+    "first_name": "Levi",
+    "last_name": "00",
+    "inserted_at": "2024-09-03T13:47:17Z",
+    "updated_at": "2024-09-03T13:47:17Z"
+  }
+}
+```
+
+### Path Parameters
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| id               | uuid            | yes      | The contacts uuid                                                                                                                  |
+
+#### `id` (required)
+
+**type:** `uuid`
