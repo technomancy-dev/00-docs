@@ -6,5 +6,6 @@
     "type": "separator"
   },
   "sdks": "Community SDKs",
-  "changelog": "Pro Changelog"
+  "changelog": "Pro Changelog",
+  "decisions": "Decisions"
 }

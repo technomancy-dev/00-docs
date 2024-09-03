@@ -3,7 +3,7 @@ title: Broadcast Email
 description: A reference page in my new Starlight docs site.
 ---
 
-## Broadcast Email
+## Broadcast Email (Pro Feature)
 
 Broadcast emails via `POST` to the `/api/emails/broadcasts` endpoint.
 
@@ -56,7 +56,7 @@ I see you drive a {{ car.year }}, {{ car.make }} {{ car.model }}
 
 ### `recipients` (required)
 
-**type:** `string[] | List[] | Email[]` 
+**type:** `string[] | List[] | Email[]`
 
 
 
@@ -83,7 +83,7 @@ List takes either a `name` which is the name of the list, or `id` which is it's 
 #### Email
 
 **type:** `{ type: "email", name: email, [key: string]: any; }`
- 
+
 Email simply requires an `email` field. Anything else you add to this object will be fed into the template variables.
 ```json
 {

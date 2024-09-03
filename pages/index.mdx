@@ -5,16 +5,19 @@ import { Bolt } from '../components/bolt'
 
 The best solution for self hosted email monitoring.
 
-A single docker image, SST to configure AWS, a unique and powerful API, and much more.
+## 5 steps to send an email
 
-## Quickstart
+00 is a single docker image and uses SST to configure AWS.
+
+
+I encourage you to follow the in depth getting started guide linked below, but this page provides a tldr; answer to how hard is getting started.   
+
 
 <Card icon={<Bolt/>} title="Getting started is quick and easy, check out full getting started guide for more detail on each step." href="/guides/getting-started" />
 
 1. Clone the [repository](https://github.com/technomancy-dev/00)
 `git clone git@github.com:technomancy-dev/00.git` <br/>
-2. run `sst deploy` (this will create the SNS -> SQS pipeline needed) <br/>
-3. Create a .env file with the following variables.
+2. Create a .env file with the following variables.
 ```
 AWS_SECRET_ACCESS_KEY=
 AWS_ACCESS_KEY_ID=
@@ -24,13 +27,20 @@ SYSTEM_EMAIL= # For sending stuff like password resets. Ex: test@example.com sho
 SECRET_KEY_BASE= # A long secret. at least 64 characters. Can be made with mix phx.gen.secret or however you generate safe keys.
 DATABASE_PATH= # Path to SQLite database Ex: 00.db
 PHX_HOST= #  URL or IP of where this service is running. Ex: example.com
-```
+# 
+# Needed with Pro
+# 
+UNSUBSCRIBE_EMAIL= # Some email that your email identity can use to recieve unsubscribe emails.
 
-Run the docker container
+```
+3. run `sst deploy` with your .env loaded (this will create the SNS -> SQS pipeline needed) <br/>
+
+
+4. Run the docker container
 
 `docker run -it --env-file .env -p 4000:4000 "liltechnomancer/double-zero"`
 
-Send an email:
+5. Send an email:
 ```
 curl --request POST \
   --url http://localhost:4000/api/emails \

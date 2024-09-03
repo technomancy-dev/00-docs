@@ -1,0 +1,11 @@
+---
+Date: YYYY-MM-DD
+
+Status: proposed | rejected | accepted | deprecated | … | superseded by 0005
+---
+
+# Title
+
+## Context
+## Decision
+## Consequences
