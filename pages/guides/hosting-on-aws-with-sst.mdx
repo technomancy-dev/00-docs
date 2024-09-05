@@ -1,0 +1,40 @@
+---
+title: Hosting on AWS with SST
+---
+
+# Hosting on AWS with SST
+
+> WARNING:  
+> Only follow this guide if you are all in on AWS. Managing an app on it is a significant step up in complexity than simply using it for email. And this requires even your domain to be managed with Route 53. If you are looking for the easiest option this might appear to be it at first glance, but I recommend going with a PaaS you are comfortable with like Digital Ocean or Fly.io. 
+
+This is how you deploy to AWS using SST, you will create many resources during this so please ensure you are familiar with AWS and it's pricing. You will get a ECS cluster which will need multiple EC2 instances. You will need a SSL Certificate in your Certificate manager. 
+You will have an S3 bucket where the SQLite database is replicated with litesteam (feel free to make backups however you wish, we may add a backup option soon). And likely a few more things. Everything SST uses to make a cluster and protect it with SSL. 
+
+Get a domain set up in Route 53. Then set that domain as your `PHX_HOST` environment variable. This is crucial as the application can't receive the auto-generated URL of the service that starts it, a limitation of SST at the moment. So you will need a domain in a Route 53 managed group. 
+
+Then proceed to set all these environment variables at well. 
+
+```
+AWS_SECRET_ACCESS_KEY=
+AWS_ACCESS_KEY_ID=
+AWS_REGION= # Ex: us-east-1
+SQS_URL=  # Ex: https://sqs.us-east-1.amazonaws.com/${id}
+
+SYSTEM_EMAIL= # For sending stuff like password resets. Ex: test@example.com should be able to send from SES.
+
+SECRET_KEY_BASE= # A long secret. at least 64 characters. Can be made with mix phx.gen.secret or however you generate safe keys.
+
+DATABASE_PATH= # Path to SQLite database Ex: 00.db
+PHX_HOST= #  URL or IP of where this service is running. Ex: example.com
+SST_DEPLOY=true
+# 
+# Needed with Pro
+# 
+UNSUBSCRIBE_EMAIL= # Some email that your email identity can use to recieve unsubscribe emails.
+```
+
+Then run `sst deploy` and it should finish and tell you it's hosted at your URL (`PHX_HOST`). 
+
+If not please create an issue describing what you faced (if you can't solve it, sometimes it's conflicting existing AWS resources)
+
+Whenever installing an update or making a change I recommend a full `sst remove` as during development I got things into weird states by making changes, but go with your gut. 

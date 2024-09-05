@@ -1,0 +1,47 @@
+---
+title: Setting up AWS without SST
+---
+
+# Setting up AWS without SST
+
+Either you don't want to use SST or tried and experienced difficulties. Whichever the case here is how to set up the SQS Queue 00 needs manually. The high level overview can be summarized in a few steps. 
+
+1. Create a default configuration set. 
+1. Set up SES and a sending identity and set configuration set.
+3. Add an event destination that is an SNS destination type. 
+4. Create a subscription to this SNS destination with an SQS Queue. 
+
+Here is each step in detail. 
+
+## Create a default configuration set. 
+
+Depending on your region you want to go to a url like https://us-east-1.console.aws.amazon.com/ses/home?region=us-east-1#/configuration-sets
+Or click the Configuration sets tab in SES's sidebar.
+
+Click the Orange `Create Set` button and give it a name. Unless you have a good reason leave everything else default.
+
+## Set up SES and a sending identity
+
+Depending on your region you want to go to a url like https://us-east-1.console.aws.amazon.com/ses/home?region=us-east-1#/identities
+Or click the identities tab in SES's sidebar.
+
+Click the Orange `Create Identity` button. Pick email or domain, then set the default configuration set to the one you created in step 1. 
+
+## Add an event destination that is an SNS destination type. 
+
+Go to the configuration set you made and go to `Event Destinations` click `Add Destination` and select the following: Sends, Rejects, Deliveries, Complaints.
+
+Click next and choose SNS as the destination type. Select create SNS topic and name it. Select it from the dropdown now. Click `Next` then `Add Destination`
+
+## Create a subscription to this SNS destination with an SQS Queue. 
+
+First go to your SQS dashboard. Something like https://us-east-1.console.aws.amazon.com/sqs/v3/home?region=us-east-1#/queues depending on region. 
+
+Click `Create Queue` Give it a name and keep everything else the default. 
+
+Go to your SNS topics. Some URL like https://us-east-1.console.aws.amazon.com/sns/v3/home?region=us-east-1#/topics depending on your region. 
+Or search for SNS at the top and select Topics. 
+
+Select the topic we created earlier. Then click `Create Subscription` pick SQS for protocol and the queue we just created for the endpoint. 
+
+Now you are done. Find your queue URL by clicking on the queue in the SQS dashboard and use that as the needed environment variable. 
