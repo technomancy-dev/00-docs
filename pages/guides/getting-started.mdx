@@ -31,6 +31,17 @@ You can find a guide for that [here](https://github.com/technomancy-dev/00/wiki/
 
 If you would like to host on AWS you can deploy the entire application by setting `SST_DEPLOY=true` here is a [full guide](https://github.com/technomancy-dev/00/wiki/Hosting-on-AWS-with-SST) on that. If you follow that, ignore the next section
 
+The permissions your IAM user needs are 
+
+```json
+[
+  "ses:SendRawEmail",
+  "sqs:ReceiveMessage",
+  "sqs:DeleteMessage",
+  "ses:GetSendQuota"
+]  
+```
+
 ## Docker Container
 
 We publish a docker image to the [registery](https://hub.docker.com/r/liltechnomancer/double-zero)
@@ -54,6 +65,11 @@ SECRET_KEY_BASE= # A long secret. at least 64 characters. Can be made with mix p
 
 DATABASE_PATH= # Path to SQLite database Ex: 00.db
 PHX_HOST= #  URL or IP of where this service is running. Ex: example.com
+
+# 
+# Needed with Pro
+# 
+UNSUBSCRIBE_EMAIL= # Some email that your email identity can use to recieve unsubscribe emails.
 ```
 
 Now visit your url (whatever you set PHX_HOST to) and register your user.
@@ -127,7 +143,6 @@ The request body has to be json with these parameters
   "to": ["levi@technomancy.dev", "complaint@simulator.amazonses.com"]
 }
 ```
-
 
 ## Support
 Stuck? Tell me about it on [Discord](https://discord.gg/6r7Qtf754K) and lets unstick you!
