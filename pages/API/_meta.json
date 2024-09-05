@@ -6,5 +6,11 @@
   "get-contacts": "Get Contacts (Pro)",
   "get-contact": "Get Contact (Pro)",
   "update-contact": "Update Contact (Pro)",
-  "delete-contact": "Delete Contact (Pro)"
+  "delete-contact": "Delete Contact (Pro)",
+  "get-lists": "Get Lists (Pro)",
+  "get-list": "Get List (Pro)",
+  "update-list": "Update List (Pro)",
+  "delete-list": "Delete List (Pro)",
+  "add-contact-to-list": "Add Contact to List (Pro)",
+  "remove-contact-from-list": "Remove Contact from List (Pro)"
 }

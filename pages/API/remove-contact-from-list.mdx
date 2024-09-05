@@ -1,0 +1,25 @@
+---
+title: Remove Contact from List
+---
+
+## Remove Contact from List (Pro Feature)
+
+Remove contact from a list via `post` to the `/api/lists/:id/contacts/:contact_id` endpoint. Returns `204`
+
+
+### Body Parameters
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| contact_id            | uuid          | yes       | The contact ID.                                                                                     |
+
+
+### Path Parameters
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| id               | uuid            | yes      | The lists uuid                                                                                                                  |
+
+#### `id` (required)
+
+**type:** `uuid`

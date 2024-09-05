@@ -1,0 +1,39 @@
+---
+title: Update List
+---
+
+## Update List (Pro Feature)
+
+Update a list via `patch` to the `/api/lists/:id` endpoint.
+
+### Example Response
+```json copy
+{
+
+  "data": {
+    "id": "1177c188-4ebe-4380-81da-deb496ef4179",
+    "name": "A list",
+    "description": "It's nice",
+    "inserted_at": "2024-09-03T13:47:17Z",
+    "updated_at": "2024-09-03T13:47:17Z"
+  }
+}
+```
+
+### Body Parameters
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| name            | string          | no       | The lists name.                                                                                     |
+| description       | string          | no       | The lists description.                                                                                                                 |
+
+
+### Path Parameters
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| id               | uuid            | yes      | The lists uuid                                                                                                                  |
+
+#### `id` (required)
+
+**type:** `uuid`

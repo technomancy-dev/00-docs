@@ -1,0 +1,34 @@
+---
+title: Add Contact to List
+---
+
+## Add Contact to List (Pro Feature)
+
+Add contact to a list via `post` to the `/api/lists/:id/contacts` endpoint.
+
+### Example Response
+```json copy
+{
+
+  "data": {
+    "id": "1177c188-4ebe-4380-81da-deb496ef4179",
+    "list_id": "2288d299-4ebe-4380-81da-deb496ef4179",
+    "contact_id": "3399c311-4ebe-4380-81da-deb496ef4179",
+    "subscription_token": "cfb497fg5289",
+    "inserted_at": "2024-09-03T13:47:17Z",
+    "updated_at": "2024-09-03T13:47:17Z"
+  }
+}
+```
+
+
+### Path Parameters
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| id               | uuid            | yes      | The lists uuid                                                                                                                  |
+| contact_id               | uuid            | yes      | The contacts uuid                                                                                                                  |
+
+#### `id` (required)
+
+**type:** `uuid`

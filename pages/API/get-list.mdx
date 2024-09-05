@@ -1,0 +1,32 @@
+---
+title: Get List
+description: A reference page in my new Starlight docs site.
+---
+
+## Get List (Pro Feature)
+
+Get a list via `get` to the `/api/lists/:id` endpoint.
+
+### Example
+```json copy
+{
+
+  "data": {
+    "id": "1177c188-4ebe-4380-81da-deb496ef4179",
+    "name": "A list",
+    "description": "It's very nice",
+    "inserted_at": "2024-09-03T13:47:17Z",
+    "updated_at": "2024-09-03T13:47:17Z"
+  }
+}
+```
+
+### Path Parameters
+
+| Param            | Type            | Required | Notes                                                                                                                                    |
+|------------------|-----------------|----------|------------------------------------------------------------------------------------------------------------------------------------------|
+| id               | uuid            | yes      | The contacts uuid                                                                                                                  |
+
+#### `id` (required)
+
+**type:** `uuid`
